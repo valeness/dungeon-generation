@@ -62,29 +62,37 @@ room_list = []
 def generate(cellsX, cellsY, cellSize=72):
 
 	class Cell(object):
-		def __init__(self, x, y, id, type):
+		def __init__(self, x, y, id, type, drawn):
 			self.x = x
 			self.y = y 
 			self.id = id
 			self.type = type
+			self.drawn = drawn
 
 	cells = {}
 	last_x = 0
 	last_y = 0
 
+	max_steps = 15
+
 	for y in range (cellsY):
 		for x in range(cellsX):
 			cell_id = len(cells) + 1
-			c = Cell(x, y, cell_id, "room")
-			cells[((c.x * cellSize), (c.y * cellSize), c.id)] = c
+			c = Cell(x, y, cell_id, None, False)
+			cells[((c.x * cellSize), (c.y * cellSize), c.id, None, False)] = c
 
 	for i in cells:
-		choice = randrange(1, 3)
+		direction = randrange(1, 5)
+		choice = randrange(1, 6)
 		x = i[0]
 		y = i[1]
-		id = i[0]
+		id = i[2]
+		type = i[3]
+		drawn = i[4]
+		cell = cells[(x, y, id, type, drawn)]
 		if choice == 2:
 			pygame.draw.rect(screen, RED, (x, y, cellSize, cellSize))
+			cell.drawn = True
 			num = mono_font.render(str(id), 1, BLUE)
 			screen.blit(num, (x, y))
 			last_x = x
