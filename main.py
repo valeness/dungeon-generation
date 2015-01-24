@@ -75,7 +75,7 @@ def generate(cellsX, cellsY, cellSize=72):
 	for y in range (cellsY):
 		for x in range(cellsX):
 			cell_id = len(cells) + 1
-			c = Cell(x, y, cell_id)
+			c = Cell(x, y, cell_id, "room")
 			cells[((c.x * cellSize), (c.y * cellSize), c.id)] = c
 
 	for i in cells:
